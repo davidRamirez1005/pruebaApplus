@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="crud">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Consumo de API con AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="./service/app.js" defer></script>
+    <script src="./service/apiConfig.js" defer></script>
+
+</head>
+
+<body ng-controller="MainController" class="container mt-4">
+
+    <h1>Productos:</h1>
+
+    <button class="btn btn-primary mb-2" ng-click="abrirModalCrear()">Crear Producto</button>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Fecha Creado</th>
+                <th>Fecha Actualizado</th>
+                <th>Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in products">
+                <td>{{ product.codigo_producto }}</td>
+                <td>{{ product.nombre_producto }}</td>
+                <td>{{ product.precio_producto }}</td>
+                <td>{{ product.fecha_creado }}</td>
+                <td>{{ product.fecha_actualizado }}</td>
+                <td>{{ product.nombre_categoria }}</td>
+                <td>
+                    <button class="btn btn-info btn-sm" ng-click="abrirModalActualizar(product)">Actualizar</button>
+                    <button class="btn btn-danger btn-sm" ng-click="abrirModalEliminar(product)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal" id="eliminarProductoModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Eliminar</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <h3 class="text-danger">Confirmar para eliminar</h3>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" ng-click="eliminarProducto(product)">Confirmar</button>
+                  <input type="hidden" name="codeDelete" id="codeDelete" value="">
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+    <div class="modal" id="crearProductoModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Crear Producto</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form>
+                      <div class="form-group">
+                          <label for="codigo">Código:</label>
+                          <input type="text" class="form-control" id="code" ng-model="nuevoProducto.code">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">Nombre:</label>
+                          <input type="text" class="form-control" id="name" ng-model="nuevoProducto.name">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">categoria:</label>
+                          <input type="text" class="form-control" id="category" ng-model="nuevoProducto.category">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">precio:</label>
+                          <input type="text" class="form-control" id="price" ng-model="nuevoProducto.price">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">fecha creacion:</label>
+                          <input type="date" class="form-control" id="createdAt" ng-model="nuevoProducto.createdAt">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">fecha actualizacion:</label>
+                          <input type="date" class="form-control" id="updatedAt" ng-model="nuevoProducto.updatedAt">
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" ng-click="crearProducto()">Guardar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <div class="modal" id="actualizarProductoModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Crear Producto</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form>
+                      <div class="form-group">
+                          <label for="codigo">Código:</label>
+                          <input type="hidden" class="form-control" id="code" ng-model="nuevoProducto.code">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">Nombre:</label>
+                          <input type="text" class="form-control" id="name" ng-model="nuevoProducto.name">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">categoria:</label>
+                          <input type="text" class="form-control" id="category" ng-model="nuevoProducto.category">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">precio:</label>
+                          <input type="text" class="form-control" id="price" ng-model="nuevoProducto.price">
+                      </div>
+                      <div class="form-group">
+                          <label for="nombre">fecha actualizacion:</label>
+                          <input type="date" class="form-control" id="updatedAt" ng-model="nuevoProducto.updatedAt">
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-primary" ng-click="actualizarProducto()">Guardar</button>
+                  <input type="hidden" name="codeActualizar" id="codeActualizar" value="nuevoProducto.code">
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
