@@ -37,7 +37,7 @@ INSERT INTO `product` (`code`, `name`, `category`, `price`, `createdAt`, `update
 	('tg586', 'name 3', 5, 20000.0, '2023-12-25', '2024-12-25');
 
 USE `primeraPrueba`;
-SELECT *, category
-FROM product
-INNER JOIN category
-ON category.id = product.category
+SELECT product.code AS codigo_producto, product.name AS nombre_producto, product.price AS precio_producto, product.createdAt AS fecha_creado, product.updatedAt AS fecha_actualizado, category.name AS nombre_categoria
+    FROM product
+    INNER JOIN category
+    ON category.id = product.category
