@@ -1,0 +1,15 @@
+{
+    "name": "jdram/prueba-applus",
+    "autoload": {
+        "psr-4": {
+            "Jdram\\PruebaApplus\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "davidRamirez1005",
+            "email": "ramirezjd1005@gmail.com"
+        }
+    ],
+    "require": {}
+}
