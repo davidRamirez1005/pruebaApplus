@@ -1,15 +1,28 @@
 {
-    "name": "jdram/prueba-applus",
-    "autoload": {
-        "psr-4": {
-            "Jdram\\PruebaApplus\\": "src/"
-        }
-    },
+    "name": "david/prueba",
+    "description": "Simple MVC framework",
+    "type": "project",
+    "license": "MIT",
     "authors": [
         {
-            "name": "davidRamirez1005",
-            "email": "ramirezjd1005@gmail.com"
+            "name": "david",
+            "email": "david02@gmail.com"
         }
     ],
-    "require": {}
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "david\\": "src/",
+            "App\\": "app/"
+        },
+        "files": [
+            "app/helpers.php"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
 }
