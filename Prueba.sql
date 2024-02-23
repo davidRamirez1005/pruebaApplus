@@ -76,3 +76,10 @@ WHERE prestamo.fecha_devolucion IS NOT NULL
 -- usuario que los tiene prestados y la fecha de préstamo.
 
 USE `prueba`;
+SELECT prestamo.fecha_prestamo AS fecha_prestamo, prestamo.fecha_devolucion AS fecha_devolucion, libro.titulo AS titulo_libro, libro.autor, usuario.nombre AS nombre_usuario
+FROM prestamo
+INNER JOIN libro
+ON libro.id = prestamo.libro_id
+INNER JOIN usuario
+ON usuario.id = prestamo.usuario_id
+WHERE prestamo.fecha_devolucion IS NULL AND DATEDIFF(CURDATE(), fecha_prestamo) > 7;
